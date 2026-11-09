@@ -1,0 +1,80 @@
+### Variavel base
+@base = http://localhost:8080/api/cartas
+
+### Listar todas
+GET {{base}}
+
+### Filtrar por nome
+GET {{base}}?nome=dragao
+
+### Filtrar por raridade
+GET {{base}}?raridade=LENDARIA
+
+### Buscar por ID
+GET {{base}}/1
+
+### Criar carta (201)
+POST {{base}}
+Content-Type: application/json
+
+{
+  "nome": "Cavaleiro Sombrio",
+  "tipo": "CRIATURA",
+  "raridade": "EPICA",
+  "custoMana": 5,
+  "ataque": 6,
+  "defesa": 4,
+  "descricao": "Ataca duas vezes se houver outra criatura aliada."
+}
+
+### Criar com dados invalidos (400)
+POST {{base}}
+Content-Type: application/json
+
+{
+  "nome": "",
+  "tipo": "CRIATURA",
+  "raridade": "COMUM",
+  "custoMana": 99
+}
+
+### Criar com nome duplicado (409)
+POST {{base}}
+Content-Type: application/json
+
+{
+  "nome": "Goblin Batedor",
+  "tipo": "CRIATURA",
+  "raridade": "COMUM",
+  "custoMana": 1,
+  "ataque": 2,
+  "defesa": 1
+}
+
+### Atualizar completamente (200)
+PUT {{base}}/2
+Content-Type: application/json
+
+{
+  "nome": "Goblin Veterano",
+  "tipo": "CRIATURA",
+  "raridade": "INCOMUM",
+  "custoMana": 2,
+  "ataque": 3,
+  "defesa": 2,
+  "descricao": "Sobreviveu a mil batalhas."
+}
+
+### Atualizar parcialmente (200)
+PATCH {{base}}/1
+Content-Type: application/json
+
+{
+  "ataque": 10
+}
+
+### Deletar (204)
+DELETE {{base}}/4
+
+### ID inexistente (404)
+GET {{base}}/9999
